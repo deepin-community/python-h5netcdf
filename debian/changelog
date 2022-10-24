@@ -1,0 +1,85 @@
+python-h5netcdf (0.11.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Install README.rst with docs.
+
+ -- Drew Parsons <dparsons@debian.org>  Mon, 16 Aug 2021 02:07:20 +0200
+
+python-h5netcdf (0.10.0-1) experimental; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+    - supports h5py 3 with variable string lengths
+      (drop debian patch h5py3_string_decode_PR82.patch)
+
+ -- Drew Parsons <dparsons@debian.org>  Tue, 16 Feb 2021 13:28:16 +0100
+
+python-h5netcdf (0.8.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * debian patch h5py3_string_decode_PR82.patch applies upstream PR82
+    to fix string handling with h5py 3. Closes: #974179.
+  * Standards-Version: 4.5.1
+
+ -- Drew Parsons <dparsons@debian.org>  Thu, 14 Jan 2021 04:08:26 +1100
+
+python-h5netcdf (0.8.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+    - drop debian patch h5py_File_mode.patch, applied upstream
+  * debhelper compatibility level 13
+
+ -- Drew Parsons <dparsons@debian.org>  Mon, 20 Jul 2020 14:29:07 +0800
+
+python-h5netcdf (0.8.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Standards-Version: 4.5.0
+  * mark debhelper compatibility with
+    Build-Depends: debhelper-compat (= 12)
+  * debian patch h5py_File_mode.patch fixes a couple more h5py File
+    modes missed in the new release.  Closes: #955596.
+
+ -- Drew Parsons <dparsons@debian.org>  Sat, 04 Apr 2020 19:14:40 +0800
+
+python-h5netcdf (0.7.1-1) unstable; urgency=medium
+
+  * New upstream version 0.7.1 (Closes: #915260)
+  * Drop obsolete get-orig-source target
+  * Drop obsolete X-Python3-Version
+  * Update package description
+  * Update VCS URIs
+  * Bump debhelper version to 12
+  * Bump standards version to 4.3.0
+
+ -- Ghislain Antony Vaillant <ghisvail@gmail.com>  Wed, 03 Apr 2019 10:43:04 +0200
+
+python-h5netcdf (0.5.0-1) unstable; urgency=medium
+
+  * New upstream version 0.5.0
+  * Add recommended get-orig-source target
+
+ -- Ghislain Antony Vaillant <ghisvail@gmail.com>  Tue, 31 Oct 2017 10:07:23 +0000
+
+python-h5netcdf (0.4.3-1) unstable; urgency=medium
+
+  * New upstream version 0.4.3 (Closes: #877150)
+  * Drop the patch queue, no longer required
+  * Clean egg-info directory using extend-diff-ignore
+  * Drop superfluous nocheck guards in rules file
+  * Ensure tests are run in isolation during build
+  * Fixup the whitespacing in rules file
+  * Normalize the package descriptions
+  * Fixup the Vcs-Browser URI
+  * Bump the standards version to 4.1.1
+
+ -- Ghislain Antony Vaillant <ghisvail@gmail.com>  Wed, 11 Oct 2017 17:13:50 +0100
+
+python-h5netcdf (0.3.1-1) unstable; urgency=low
+
+  * Initial release. (Closes: #851378)
+
+ -- Ghislain Antony Vaillant <ghisvail@gmail.com>  Thu, 23 Feb 2017 13:42:31 +0000

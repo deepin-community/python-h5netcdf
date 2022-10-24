@@ -1,0 +1,8 @@
+Test-Command: set -e
+ ; cp -a h5netcdf/tests "$AUTOPKGTEST_TMP"
+ ; for py in $(py3versions -r 2>/dev/null)
+ ; do cd "$AUTOPKGTEST_TMP"
+ ; echo "Testing with $py:"
+ ; $py -m pytest tests
+ ; done
+Depends: @, python3-all, python3-netcdf4, python3-pytest

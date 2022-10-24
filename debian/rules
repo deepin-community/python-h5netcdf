@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+export PYBUILD_NAME=h5netcdf
+export PYBUILD_BEFORE_TEST=cp -r {dir}/h5netcdf/tests {build_dir}
+export PYBUILD_AFTER_TEST=rm -rf {build_dir}/tests
+
+%:
+	dh $@ --with python3 --buildsystem=pybuild
