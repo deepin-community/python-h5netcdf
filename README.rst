@@ -4,15 +4,20 @@ h5netcdf
 .. image:: https://github.com/h5netcdf/h5netcdf/workflows/CI/badge.svg
     :target: https://github.com/h5netcdf/h5netcdf/actions
 .. image:: https://badge.fury.io/py/h5netcdf.svg
-    :target: https://pypi.python.org/pypi/h5netcdf/
+    :target: https://pypi.org/project/h5netcdf/
+.. image:: https://github.com/h5netcdf/h5netcdf/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages
+    :target: https://h5netcdf.github.io/h5netcdf/
 
-A Python interface for the netCDF4_ file-format that reads and writes local or
-remote HDF5 files directly via h5py_ or h5pyd_, without relying on the Unidata
+A Python interface for the `netCDF4`_ file-format that reads and writes local or
+remote HDF5 files directly via `h5py`_ or `h5pyd`_, without relying on the Unidata
 netCDF library.
 
-.. _netCDF4: http://www.unidata.ucar.edu/software/netcdf/docs/file_format_specifications.html#netcdf_4_spec
-.. _h5py: http://www.h5py.org/
+.. _netCDF4: https://docs.unidata.ucar.edu/netcdf-c/current/file_format_specifications.html#netcdf_4_spec
+.. _h5py: https://www.h5py.org/
 .. _h5pyd: https://github.com/HDFGroup/h5pyd
+
+
+.. why-h5netcdf
 
 Why h5netcdf?
 -------------
@@ -31,24 +36,36 @@ Why h5netcdf?
   bugs in the netCDF libraries/specification.
 
 .. _one workflow: https://github.com/Unidata/netcdf4-python/issues/390#issuecomment-93864839
-.. _xarray: http://github.com/pydata/xarray/
+.. _xarray: https://github.com/pydata/xarray/
 
 Install
 -------
 
-Ensure you have a recent version of h5py installed (I recommend using conda_).
-At least version 2.1 is required (for dimension scales); versions 2.3 and newer
-have been verified to work, though some tests only pass on h5py 2.6. Then:
-``pip install h5netcdf``
+Ensure you have a recent version of h5py installed (I recommend using `conda`_ or
+the community effort `conda-forge`_).
+At least version 3.0 is required. Then::
 
-.. _conda: http://conda.io/
+    $ pip install h5netcdf
+
+Or if you are already using conda::
+
+    $ conda install h5netcdf
+
+Note:
+
+From version 1.2. h5netcdf tries to align with a `nep29`_-like support policy with regard
+to it's upstream dependencies.
+
+.. _conda: https://conda.io/
+.. _conda-forge: https://conda-forge.org/
+.. _nep29: https://numpy.org/neps/nep-0029-deprecation_policy.html
 
 Usage
 -----
 
 h5netcdf has two APIs, a new API and a legacy API. Both interfaces currently
 reproduce most of the features of the netCDF interface, with the notable
-exception of support for operations the rename or delete existing objects.
+exception of support for operations that rename or delete existing objects.
 We simply haven't gotten around to implementing this yet. Patches
 would be very welcome.
 
@@ -90,10 +107,18 @@ design is an adaptation of h5py to the netCDF data model. For example:
         # explicitly resize a dimension and all variables using it
         f.resize_dimension('z', 3)
 
+Notes:
+
+- Automatic resizing of unlimited dimensions with array indexing is not available.
+- Dimensions need to be manually resized with ``Group.resize_dimension(dimension, size)``.
+- Arrays are returned padded with ``fillvalue`` (taken from underlying hdf5 dataset) up to
+  current size of variable's dimensions. The behaviour is equivalent to netCDF4-python's
+  ``Dataset.set_auto_mask(False)``.
+
 Legacy API
 ~~~~~~~~~~
 
-The legacy API is designed for compatibility with netCDF4-python_. To use it, import
+The legacy API is designed for compatibility with `netCDF4-python`_. To use it, import
 ``h5netcdf.legacyapi``:
 
 .. _netCDF4-python: https://github.com/Unidata/netcdf4-python
@@ -123,15 +148,14 @@ exact match. Here is an incomplete list of functionality we don't include:
 
 - Utility functions ``chartostring``, ``num2date``, etc., that are not directly necessary
   for writing netCDF files.
-- We don't support the ``endian`` argument to ``createVariable`` yet (see `GitHub issue`_).
 - h5netcdf variables do not support automatic masking or scaling (e.g., of values matching
   the ``_FillValue`` attribute). We prefer to leave this functionality to client libraries
-  (e.g., xarray_), which can implement their exact desired scaling behavior.
-- No support yet for automatic resizing of unlimited dimensions with array
-  indexing. This would be a welcome pull request. For now, dimensions can be
-  manually resized with ``Group.resize_dimension(dimension, size)``.
+  (e.g., `xarray`_), which can implement their exact desired scaling behavior. Nevertheless
+  arrays are returned padded with ``fillvalue`` (taken from underlying hdf5 dataset) up to
+  current size of variable's dimensions. The behaviour is equivalent to netCDF4-python's
+  ``Dataset.set_auto_mask(False)``.
 
-.. _GitHub issue: https://github.com/h5netcdf/h5netcdf/issues/15
+.. _invalid netcdf:
 
 Invalid netCDF files
 ~~~~~~~~~~~~~~~~~~~~
@@ -147,7 +171,7 @@ h5py implements some features that do not (yet) result in valid netCDF files:
 - Arbitrary filters:
     - Scale-offset filters
 
-By default [*]_, h5netcdf will not allow writing files using any of these features,
+By default [#]_, h5netcdf will not allow writing files using any of these features,
 as files with such features are not readable by other netCDF tools.
 
 However, these are still valid HDF5 files. If you don't care about netCDF
@@ -164,9 +188,12 @@ when creating a file:
   ds = h5netcdf.legacyapi.Dataset('mydata.h5', invalid_netcdf=True)
   ...
 
-.. [*] Currently, we only issue a warning, but in a future version of h5netcdf,
-       we will raise ``h5netcdf.CompatibilityError``. Use
-       ``invalid_netcdf=False`` to switch to the new behavior now.
+In such cases the `_NCProperties` attribute will not be saved to the file or be removed
+from an existing file. A warning will be issued if the file has `.nc`-extension.
+
+.. rubric:: Footnotes
+
+.. [#] h5netcdf we will raise ``h5netcdf.CompatibilityError``.
 
 Decoding variable length strings
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -178,18 +205,17 @@ they are required as arrays of ``bytes``.
 The legacy API preserves the old behavior of h5py (which matches netCDF4),
 and automatically decodes strings.
 
-The new API *also* currently preserves the old behavior of h5py, but issues a
-warning that it will change in the future to match h5py. Explicitly set
-``decode_vlen_strings=False`` in the ``h5netcdf.File`` constructor to opt-in to
-the new behavior early, or set ``decode_vlen_strings=True`` to opt-in to
-automatic decoding.
+The new API matches h5py behavior. Explicitly set ``decode_vlen_strings=True``
+in the ``h5netcdf.File`` constructor to opt-in to automatic decoding.
 
 .. _new behavior: https://docs.h5py.org/en/stable/strings.html
+
+.. _phony dims:
 
 Datasets with missing dimension scales
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-By default [*]_ h5netcdf raises a ``ValueError`` if variables with no dimension
+By default [#]_ h5netcdf raises a ``ValueError`` if variables with no dimension
 scale associated with one of their axes are accessed.
 You can set ``phony_dims='sort'`` when opening a file to let h5netcdf invent
 phony dimensions according to `netCDF`_ behaviour.
@@ -201,7 +227,7 @@ phony dimensions according to `netCDF`_ behaviour.
   ...
 
 Note, that this iterates once over the whole group-hierarchy. This has affects
-on performance in case you rely on lazyness of group access.
+on performance in case you rely on laziness of group access.
 You can set ``phony_dims='access'`` instead to defer phony dimension creation
 to group access time. The created phony dimension naming will differ from
 `netCDF`_ behaviour.
@@ -211,19 +237,58 @@ to group access time. The created phony dimension naming will differ from
   f = h5netcdf.File('mydata.h5', mode='r', phony_dims='access')
   ...
 
-.. _netCDF: https://www.unidata.ucar.edu/software/netcdf/docs/interoperability_hdf5.html
-.. [*] Keyword default setting ``phony_dims=None`` for backwards compatibility.
+.. rubric:: Footnotes
+
+.. [#] Keyword default setting ``phony_dims=None`` for backwards compatibility.
+
+.. _netCDF: https://docs.unidata.ucar.edu/netcdf-c/current/interoperability_hdf5.html
+
+Track Order
+~~~~~~~~~~~
+
+As of h5netcdf 1.1.0, if h5py 3.7.0 or greater is detected, the ``track_order``
+parameter is set to ``True`` enabling `order tracking`_ for newly created
+netCDF4 files. This helps ensure that files created with the h5netcdf library
+can be modified by the netCDF4-c and netCDF4-python implementation used in
+other software stacks. Since this change should be transparent to most users,
+it was made without deprecation.
+
+Since track_order is set at creation time, any dataset that was created with
+``track_order=False`` (h5netcdf version 1.0.2 and older except for 0.13.0) will
+continue to opened with order tracker disabled.
+
+The following describes the behavior of h5netcdf with respect to order tracking
+for a few key versions:
+
+- Version 0.12.0 and earlier, the ``track_order`` parameter`order was missing
+  and thus order tracking was implicitely set to ``False``.
+- Version 0.13.0 enabled order tracking by setting the parameter
+  ``track_order`` to ``True`` by default without deprecation.
+- Versions 0.13.1 to 1.0.2 set ``track_order`` to ``False`` due to a bug in a
+  core dependency of h5netcdf, h5py `upstream bug`_ which was resolved in h5py
+  3.7.0 with the help of the h5netcdf team.
+- In version 1.1.0, if h5py 3.7.0 or above is detected, the ``track_order``
+  parameter is set to ``True`` by default.
+
+
+.. _order tracking: https://docs.unidata.ucar.edu/netcdf-c/current/file_format_specifications.html#creation_order
+.. _upstream bug: https://github.com/h5netcdf/h5netcdf/issues/136
+.. _[*]: https://github.com/h5netcdf/h5netcdf/issues/128
+
+.. changelog
 
 Changelog
 ---------
 
 `Changelog`_
 
-.. _Changelog: https://github.com/h5netcdf/h5netcdf/blob/master/CHANGELOG.rst
+.. _Changelog: https://github.com/h5netcdf/h5netcdf/blob/main/CHANGELOG.rst
+
+.. license
 
 License
 -------
 
 `3-clause BSD`_
 
-.. _3-clause BSD: https://github.com/h5netcdf/h5netcdf/blob/master/LICENSE
+.. _3-clause BSD: https://github.com/h5netcdf/h5netcdf/blob/main/LICENSE

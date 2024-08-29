@@ -1,0 +1,10 @@
+Document: python-h5netcdf-doc
+Title: h5netcdf: netCDF4 support via h5py for Python
+Author: Stephan Hoyer
+Abstract: Documentation for h5netcdf, providing
+ netCDF4 support via h5py for Python.
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-h5netcdf-doc/html/index.html
+Files: /usr/share/doc/python-h5netcdf-doc/html/*

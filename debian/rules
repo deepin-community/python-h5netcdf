@@ -4,8 +4,16 @@
 #export DH_VERBOSE=1
 
 export PYBUILD_NAME=h5netcdf
-export PYBUILD_BEFORE_TEST=cp -r {dir}/h5netcdf/tests {build_dir}
-export PYBUILD_AFTER_TEST=rm -rf {build_dir}/tests
+export PYBUILD_TEST_ARGS=-v -k "not test_ros3"
 
 %:
-	dh $@ --with python3 --buildsystem=pybuild
+	dh $@ --with python3,sphinxdoc --buildsystem=pybuild
+
+execute_after_dh_clean:
+	rm -rf doc/generated
+
+execute_after_dh_auto_build:
+ifeq (,$(findstring nodoc, $(DEB_BUILD_OPTIONS)))
+	PYTHONPATH=. sphinx-build -b html -N doc/ $(CURDIR)/.pybuild/docs/html
+	rm -r $(CURDIR)/.pybuild/docs/html/_static/__pycache__
+endif

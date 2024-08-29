@@ -1,0 +1,5 @@
+# Created by sphinx
+extra-license-file [usr/share/doc/python-h5netcdf-doc/html/_static/vendor/fontawesome/*]
+font-in-non-font-package [usr/share/doc/python-h5netcdf-doc/html/_static/vendor/fontawesome/*]
+font-outside-font-dir [usr/share/doc/python-h5netcdf-doc/html/_static/vendor/fontawesome/*]
+
