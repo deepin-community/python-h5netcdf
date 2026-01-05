@@ -1,0 +1,13 @@
+Index: python-h5netcdf/doc/conf.py
+===================================================================
+--- python-h5netcdf.orig/doc/conf.py	2024-11-08 13:48:46.635215013 +0100
++++ python-h5netcdf/doc/conf.py	2024-11-08 13:49:16.371504301 +0100
+@@ -72,7 +72,7 @@
+ # The theme to use for HTML and HTML Help pages.  See the documentation for
+ # a list of builtin themes.
+ #
+-html_theme = "sphinx_book_theme"
++#html_theme = "sphinx_book_theme"
+ html_title = f"h5netcdf - {release}"
+ 
+ html_baseurl = "https://h5netcdf.org"

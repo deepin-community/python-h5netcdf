@@ -1,6 +1,52 @@
 Change Log
 ----------
 
+Version 1.6.1 (March 7th, 2025):
+
+- Let Variable.chunks return None for scalar variables, independent of what the underlying
+  h5ds object returns ({pull}`259`).
+  By `Rickard Holmberg <https://github.com/rho-novatron>`_
+
+Version 1.6.0 (March 7th, 2025):
+
+- Allow specifying `h5netcdf.File(driver="h5pyd")` to force the use of h5pyd ({issue}`255`, {pull}`256`).
+  By `Rickard Holmberg <https://github.com/rho-novatron>`_
+- Add pytest-mypy-plugins for xarray nightly test ({pull}`257`).
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+
+Version 1.5.0 (January 26th, 2025):
+
+- Update CI to new versions (Python 3.13, 3.14 alpha), remove numpy 1 from h5pyd runs ({pull}`250`).
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+- Update CI and reinstate h5pyd/hsds test runs ({pull}`247`).
+  By `John Readey  <https://github.com/jreadey>`_
+- Allow ``zlib`` to be used as an alias for ``gzip`` for enhanced compatibility with h5netcdf's API and xarray.
+  By `Mark Harfouche <https://github.com/hmaarrfk>`_
+
+Version 1.4.1 (November 13th, 2024):
+
+- Add CI run for hdf5 1.10.6, fix complex tests, fix enum/user type tests ({pull}`244`).
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+
+
+Version 1.4.0 (October 7th, 2024):
+
+- Add UserType class, add EnumType ({pull}`229`).
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+- Refactor fillvalue and dtype handling for user types, enhance sanity checks and tests ({pull}`230`).
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+- Add VLType and CompoundType, commit complex compound type to file. Align with nc-complex ({pull}`227`).
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+- Update h5pyd testing.
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+- CI and lint maintenance ({pull}`235`).
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+- Support wrapping an h5py ``File`` object. Closing the h5netcdf file object
+  does not close the h5py file ({pull}`238`).
+  By `Thomas Kluyver <https://github.com/takluyver>`_
+- CI and lint maintenance (format README.rst, use more f-strings, change Python 3.9 to 3.10 in CI) ({pull}`239`).
+  By `Kai Mühlbauer <https://github.com/kmuehlbauer>`_
+
 Version 1.3.0 (November 7th, 2023):
 
 - Add ros3 support by checking `driver`-kwarg.

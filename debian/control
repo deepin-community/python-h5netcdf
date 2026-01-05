@@ -7,14 +7,14 @@ Build-Depends: debhelper-compat (= 13),
                dh-python,
                pybuild-plugin-pyproject,
                python3-all,
-               python3-sphinx-book-theme <!nodoc>,
                python3-h5py <!nocheck>,
                python3-netcdf4 <!nocheck>,
+               python3-packaging,
                python3-pytest <!nocheck>,
                python3-setuptools,
                python3-setuptools-scm,
                python3-sphinx <!nodoc>
-Standards-Version: 4.6.2
+Standards-Version: 4.7.2
 Vcs-Browser: https://salsa.debian.org/science-team/python-h5netcdf
 Vcs-Git: https://salsa.debian.org/science-team/python-h5netcdf.git
 Homepage: https://github.com/shoyer/h5netcdf
