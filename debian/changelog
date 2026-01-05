@@ -1,3 +1,62 @@
+python-h5netcdf (1.6.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release
+  * Standards-Version: 4.7.2
+
+ -- Drew Parsons <dparsons@debian.org>  Fri, 04 Apr 2025 12:06:33 +0200
+
+python-h5netcdf (1.5.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release
+
+ -- Drew Parsons <dparsons@debian.org>  Thu, 20 Feb 2025 20:12:37 +0100
+
+python-h5netcdf (1.4.1-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release
+    - applies debian patch fix_tests_PR244.patch
+
+ -- Drew Parsons <dparsons@debian.org>  Sun, 24 Nov 2024 23:17:49 +0100
+
+python-h5netcdf (1.4.0-3) unstable; urgency=medium
+
+  * Team upload.
+  * replace debian patches 32bit_skip_complex_type_creation.patch and
+    test_h5py_TypeError.patch with fix_tests_PR244.patch, applying
+    upstream PR#244 to fix tests. Closes: #1087199.
+
+ -- Drew Parsons <dparsons@debian.org>  Wed, 13 Nov 2024 00:08:15 +0100
+
+python-h5netcdf (1.4.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * debian patch 32bit_skip_complex_type_creation.patch works around
+    32-bit complex type test failure. See Bug#1087199.
+
+ -- Drew Parsons <dparsons@debian.org>  Sat, 09 Nov 2024 15:30:00 +0100
+
+python-h5netcdf (1.4.0-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+    - Build-Depends: python3-packaging
+  * use pybuild build_dir to build docs
+  * ignore pycache dir in doc build if it wasn't created
+  * add debian patches
+    - doc_no_sphinx_book_theme.patch disables use of sphinx-book-theme
+      in docs. sphinx-book-theme is essentially unusable, requiring a
+      specific nodejs version which is not available.
+    - test_h5py_TypeError.patch catches h5py exception as TypeError
+      not KeyError. See upstream Issue#236.
+  * remove generated test files after buildtime testing
+  * Standards-Version: 4.7.0
+  * debian/tests: run tests with and without internet access (ros3)
+
+ -- Drew Parsons <dparsons@debian.org>  Fri, 08 Nov 2024 14:18:45 +0100
+
 python-h5netcdf (1.3.0-1) unstable; urgency=medium
 
   * Team upload.
